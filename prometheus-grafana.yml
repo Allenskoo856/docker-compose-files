@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9290:9090"
+    depends_on:
+      - node-exporter
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3300:3000"
+    volumes:
+      - /volume2/docker/grafana-storage:/var/lib/grafana
+      
+   node-exporter:
+    image: prom/node-exporter
+    container_name: node-exporter
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    network_mode: host 

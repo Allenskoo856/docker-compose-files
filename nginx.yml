@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  nginxwebui:
+    image: xcallen/nginx:1.24.1
+    container_name: nginx-fwd
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    volumes:
+      - /volume2/docker/nginx/nginx.conf:/usr/local/nginx/conf/nginx.conf
+      - /volume2/docker/nginx/logs:/usr/local/nginx/logs

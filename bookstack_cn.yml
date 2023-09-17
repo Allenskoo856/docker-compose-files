@@ -1,0 +1,32 @@
+version: "3"
+  
+services:
+  bookstack:
+    image: "willdockerhub/bookstack:v2.10_node"
+    container_name: bookstack
+    ports:
+      - "8181:8181"
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - bookstack
+
+  db:
+    image: "mysql:8.0.23"
+    container_name: bookstack_mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+      MYSQL_DATABASE: "bookstack"
+      MYSQL_USER: "bookstack"
+      MYSQL_PASSWORD: "bookstack123"
+    volumes:
+      - "/volume2/docker/bookstack:/var/lib/mysql"
+    restart: always
+    networks:
+      - bookstack    
+
+networks:
+  bookstack:

@@ -18,15 +18,12 @@ services:
     ports:
       - "3300:3000"
     volumes:
-      - /volume2/docker/grafana-storage:/var/lib/grafana
-      
-   node-exporter:
+      - /volume2/docker/grafana-storage:/var/lib/grafana  
+  node-exporter:
     image: prom/node-exporter
     container_name: node-exporter
-    ports:
-      - "9100:9100"
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /:/rootfs:ro
-    network_mode: host 
+    network_mode: host
